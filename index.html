@@ -19,14 +19,13 @@
         .msg { margin: 15px 0; font-weight: bold; font-size: 1.2em; }
         .success { color: #4caf50; }
         .error { color: #f44336; }
+        .music-btn { background: #FF69B4; padding: 10px 20px; border-radius: 20px; color: white; border: none; cursor: pointer; font-size: 14px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
-    <audio id="bgMusic" autoplay loop muted>
-        <source src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/song.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="container">
+        <button class="music-btn" onclick="toggleMusic()">🎵 Play Music</button>
+        
         <div id="stage1" class="stage active">
             <h1>💕 Valentine's Day 💕</h1>
             <h2>What is our word?</h2>
@@ -56,15 +55,24 @@
         </div>
     </div>
 
+    <audio id="bgMusic">
+        <source src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/song.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        // تشغيل الأغنية بروحها
-        window.addEventListener('load', function() {
+        let isPlaying = false;
+
+        function toggleMusic() {
             const audio = document.getElementById('bgMusic');
-            audio.muted = false;
-            audio.play().catch(function(error) {
-                console.log('لا يمكن تشغيل الصوت تلقائياً');
-            });
-        });
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                audio.loop = true;
+                isPlaying = true;
+            }
+        }
 
         function hideAll() {
             document.getElementById('stage1').classList.remove('active');
