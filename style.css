@@ -1,0 +1,17 @@
+/* Force refresh the page and clear cache */
+
+/* Reload the page */
+if (performance.navigation.type === 1) {
+    console.log('This page is reloaded');
+} else {
+    console.log('This page is not reloaded');
+}
+
+/* Initiate the cache clearing process */
+if (window.caches) {
+    caches.keys().then(function(cacheNames) {
+        cacheNames.forEach(function(cacheName) {
+            caches.delete(cacheName);
+        });
+    });
+}
