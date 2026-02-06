@@ -3,87 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Interactive Page</title>
+    <title>Valentine's Day</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #ff99cc, #ffb3ff);
-            font-family: Arial, sans-serif;
-        }
-        #stage {
-            display: none;
-            text-align: center;
-        }
-        img {
-            max-width: 500px;
-            width: 100%;
-            height: auto;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #ff6699;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 5px;
-        }
-        button:hover {
-            background-color: #ff3385;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(135deg, #FFC0CB 0%, #FF69B4 100%); font-family: Arial, sans-serif; text-align: center; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 500px; width: 100%; }
+        h1 { color: #FF1493; margin-bottom: 20px; font-size: 2.5em; }
+        h2 { color: #333; margin-bottom: 20px; font-size: 1.8em; }
+        .stage { display: none; }
+        .stage.active { display: block; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border: 2px solid #FF1493; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+        button { background: #FF1493; color: white; border: none; padding: 10px 25px; margin: 8px; border-radius: 20px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        button:hover { background: #FF69B4; }
+        img { max-width: 100%; height: auto; border-radius: 10px; margin: 20px 0; }
+        .msg { margin: 15px 0; font-weight: bold; font-size: 1.2em; }
+        .success { color: #4caf50; }
+        .error { color: #f44336; }
     </style>
 </head>
 <body>
-    <div id="stage1" class="stage">
-        <h1>What is our word?</h1>
-        <input type="text" id="wordInput" placeholder="Type here...">
-        <button onclick="checkWord()">Submit</button>
+    <div class="container">
+        <div id="stage1" class="stage active">
+            <h1>💕 Valentine's Day 💕</h1>
+            <h2>What is our word?</h2>
+            <input type="text" id="wordInput" placeholder="Type your answer...">
+            <button onclick="checkWord()">Submit</button>
+            <div id="message1" class="msg"></div>
+        </div>
+
+        <div id="stage2" class="stage">
+            <h1>💕 Valentine's Day 💕</h1>
+            <img src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/image1.jpg" alt="meowdy pookie">
+            <h2>Would you be my Valentine?</h2>
+            <button onclick="answerNo()">No</button>
+            <button onclick="answerYes()">Yes</button>
+        </div>
+
+        <div id="stage3" class="stage">
+            <h1>💔 Wrong Answer 💔</h1>
+            <p class="msg error">Wrong answer! 😢</p>
+            <button onclick="tryAgain()">Try Again</button>
+        </div>
+
+        <div id="stage4" class="stage">
+            <h1>💑 YES! 💑</h1>
+            <img src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/image2.jpg" alt="forever valentine">
+            <p class="msg success">I Love You! ❤️</p>
+        </div>
     </div>
-    <div id="stage2" class="stage">
-        <img src="image1.jpg" alt="Would you be my Valentine?">
-        <h2>Would you be my Valentine?</h2>
-        <button onclick="handleResponse('yes')">Yes</button>
-        <button onclick="handleResponse('no')">No</button>
-    </div>
-    <div id="stage3" class="stage">
-        <h2>Wrong answer!</h2>
-        <button onclick="goToStage2()">Try Again</button>
-    </div>
-    <div id="stage4" class="stage">
-        <img src="image2.jpg" alt="I Love You! ❤️">
-        <h2>I Love You! ❤️</h2>
-    </div>
+
     <script>
-        let currentStage = 1;
-        document.getElementById('stage1').style.display = 'block';
+        function hideAll() {
+            document.getElementById('stage1').classList.remove('active');
+            document.getElementById('stage2').classList.remove('active');
+            document.getElementById('stage3').classList.remove('active');
+            document.getElementById('stage4').classList.remove('active');
+        }
 
         function checkWord() {
-            const input = document.getElementById('wordInput').value;
-            if (input === 'وبعد' || input === 'و بعد') {
-                document.getElementById('stage1').style.display = 'none';
-                document.getElementById('stage2').style.display = 'block';
-                currentStage = 2;
+            const word = document.getElementById('wordInput').value.trim();
+            const msg = document.getElementById('message1');
+            if (word === 'وبعد' || word === 'و بعد') {
+                msg.innerHTML = '<span class="success">✓ Correct!</span>';
+                setTimeout(function() {
+                    hideAll();
+                    document.getElementById('stage2').classList.add('active');
+                }, 1000);
             } else {
-                alert('Try Again!');
+                msg.innerHTML = '<span class="error">✗ Wrong! Try again.</span>';
+                document.getElementById('wordInput').value = '';
             }
         }
-        function handleResponse(response) {
-            document.getElementById('stage2').style.display = 'none';
-            if (response === 'yes') {
-                document.getElementById('stage4').style.display = 'block';
-            } else {
-                document.getElementById('stage3').style.display = 'block';
-            }
+
+        function answerNo() {
+            hideAll();
+            document.getElementById('stage3').classList.add('active');
         }
-        function goToStage2() {
-            document.getElementById('stage3').style.display = 'none';
-            document.getElementById('stage2').style.display = 'block';
+
+        function answerYes() {
+            hideAll();
+            document.getElementById('stage4').classList.add('active');
         }
+
+        function tryAgain() {
+            hideAll();
+            document.getElementById('stage2').classList.add('active');
+        }
+
+        document.getElementById('wordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkWord();
+        });
     </script>
 </body>
 </html>
