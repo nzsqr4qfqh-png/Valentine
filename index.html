@@ -1,74 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine Interactive Page</title>
-    <style>
-        body {
-            background: linear-gradient(to bottom, #ffcccb, #ff99cc);
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #fff;
-        }
-        button {
-            background-color: #ee6e73;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 12px;
-        }
-    </style>
-</head>
-<body>
-    <div id="stage1">
-        <h1>What's your favorite word?</h1>
-        <input type="text" id="wordInput">  
-        <button onclick="nextStage(1)">Next</button>
-    </div>
-
-    <div id="stage2" style="display:none;">
-        <h1>Here's your Valentine question!</h1>
-        <img src="image1.jpg" alt="Valentine Question">
-        <button onclick="nextStage(2)">Answer</button>
-    </div>
-
-    <div id="stage3" style="display:none;">
-        <h1>Oops! Wrong answer</h1>
-        <button onclick="nextStage(0)">Try Again</button>
-    </div>
-
-    <div id="stage4" style="display:none;">
-        <h1>Success!</h1>
-        <img src="image2.jpg" alt="Success Image">
-    </div>
-
     <script>
-        function nextStage(stage) {
-            document.getElementById('stage' + (stage)).style.display = 'none';
-            if (stage === 1) {
-                document.getElementById('stage2').style.display = 'block';
-            } else if (stage === 2) {
-                // Assuming the answer is always correct for demonstration purposes
-                const answerIsCorrect = true;
-                if (answerIsCorrect) {
-                    document.getElementById('stage4').style.display = 'block';
-                } else {
-                    document.getElementById('stage3').style.display = 'block';
-                }
-            } else {
-                document.getElementById('stage1').style.display = 'block';
-            }
+        function stage1() {
+            // JavaScript for stage 1
+            console.log("Stage 1 activated!");
+        }
+
+        function stage2() {
+            // JavaScript for stage 2
+            console.log("Stage 2 activated!");
+        }
+
+        function stage3() {
+            // JavaScript for stage 3
+            console.log("Stage 3 activated!");
+        }
+
+        function stage4() {
+            // JavaScript for stage 4
+            console.log("Stage 4 activated!");
         }
     </script>
+</head>
+<body>
+    <h1>Welcome to the Valentine Interactive Page</h1>
+    <button onclick="stage1()">Stage 1</button>
+    <button onclick="stage2()">Stage 2</button>
+    <button onclick="stage3()">Stage 3</button>
+    <button onclick="stage4()">Stage 4</button>
+
+    <img id="valentineImage" src="https://raw.githubusercontent.com/yourusername/yourrepo/main/image.png" alt="Valentine Image" />
 </body>
 </html>
