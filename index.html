@@ -1,23 +1,103 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Valentine Questions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Valentine's Page</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .question { margin-bottom: 20px; }
-        .placeholder { width: 300px; height: 200px; background-color: #e0e0e0; text-align: center; line-height: 200px; }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #FFC0CB, #FF69B4);
+            transition: all 0.5s ease;
+        }
+        .container {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeIn 1s forwards;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #FF1493;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #FF69B4;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="question">
-        <h2>First Question</h2>
-        <div class="placeholder">Image Placeholder 1</div>
+    <div class="container" id="stage1">
+        <h1>Stage 1: What is our word?</h1>
+        <input type="text" id="wordInput" placeholder="Enter your word here">
+        <button onclick="checkWord()">Submit</button>
+        <p id="message"></p>
     </div>
-    <div class="question">
-        <h2>Second Question</h2>
-        <div class="placeholder">Image Placeholder 2</div>
+
+    <div class="container" id="stage2" style="display: none;">
+        <h1>Stage 2</h1>
+        <img src="placeholder.jpg" alt="Image Placeholder" />
+        <p>Would you be my Valentine?</p>
+        <button onclick="nextStage(true)">Yes</button>
+        <button onclick="nextStage(false)">No</button>
     </div>
+
+    <div class="container" id="stage3" style="display: none;">
+        <h1>Wrong Answer!</h1>
+        <img src="placeholder.jpg" alt="Image Placeholder" />
+        <p id="wrongMessage"></p>
+        <button onclick="goToStage1()">Try Again</button>
+    </div>
+
+    <div class="container" id="stage4" style="display: none;">
+        <h1>Success!</h1>
+        <img src="final_image.jpg" alt="Final Image" />
+        <p>You are my Valentine!</p>
+    </div>
+
     <script>
-        // Fix any display issues here (if specific issues were mentioned)
+        function checkWord() {
+            const input = document.getElementById('wordInput').value;
+            const message = document.getElementById('message');
+            if (input === 'وبعد' || input === 'و بعد') {
+                document.getElementById('stage1').style.display = 'none';
+                document.getElementById('stage2').style.display = 'block';
+            } else {
+                message.textContent = 'Try again!';
+            }
+        }
+
+        function nextStage(isYes) {
+            if (isYes) {
+                document.getElementById('stage2').style.display = 'none';
+                document.getElementById('stage4').style.display = 'block';
+            } else {
+                document.getElementById('stage2').style.display = 'none';
+                document.getElementById('stage3').style.display = 'block';
+                document.getElementById('wrongMessage').textContent = 'Sorry, maybe next time!';
+            }
+        }
+
+        function goToStage1() {
+            document.getElementById('stage3').style.display = 'none';
+            document.getElementById('stage1').style.display = 'block';
+            document.getElementById('wordInput').value = '';
+            document.getElementById('message').textContent = '';
+        }
     </script>
 </body>
 </html>
