@@ -22,8 +22,8 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" autoplay loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <audio id="bgMusic" autoplay loop muted>
+        <source src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/song.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
@@ -57,6 +57,15 @@
     </div>
 
     <script>
+        // تشغيل الأغنية بروحها
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('bgMusic');
+            audio.muted = false;
+            audio.play().catch(function(error) {
+                console.log('لا يمكن تشغيل الصوت تلقائياً');
+            });
+        });
+
         function hideAll() {
             document.getElementById('stage1').classList.remove('active');
             document.getElementById('stage2').classList.remove('active');
@@ -96,11 +105,6 @@
 
         document.getElementById('wordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkWord();
-        });
-
-        // تشغيل الصوت لما يضغط المستخدم أي حتة
-        document.addEventListener('click', function() {
-            document.getElementById('bgMusic').play();
         });
     </script>
 </body>
