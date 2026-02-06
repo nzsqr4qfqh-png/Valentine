@@ -3,41 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day Interactive Page</title>
+    <title>Valentine's Day</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #wrongAnswer, #finalImage { display: none; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe0ec 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 30px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+            margin: 10px 0;
+            border: 2px solid #d32f2f;
+            border-radius: 5px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            margin: 10px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background-color: #b71c1c;
+        }
+        
+        #stage1, #stage2, #wrongAnswer, #finalImage {
+            display: none;
+        }
+        
+        #stage1.active, #stage2.active, #wrongAnswer.active, #finalImage.active {
+            display: block;
+        }
+        
+        .message {
+            font-size: 18px;
+            margin: 15px 0;
+            color: #333;
+        }
+        
+        .error {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        
+        .success {
+            color: #388e3c;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>Valentine's Day Interactive Page</h1>
-    <label for="wordInput">What is our word?</label>
-    <input type="text" id="wordInput" placeholder="Type here...">
-    <button id="verifyBtn">Verify</button>
-    <div id="result"></div>
-    <img id="image" src="https://share.google/MYAFJfdstK7jd9Isn" alt="Valentine's Image" />
-    <h2>would you be my valentine?</h2>
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
-    <div id="wrongAnswer"><img src="https://share.google/G1IQeJoiTJaOG02Rj" alt="Wrong Answer" /></div>
-    <div id="finalImage"><img src="https://share.google/sNjiAIXh19W3EhexI" alt="Final Image" /></div>
+    <div class="container">
+        <div id="stage1" class="active">
+            <h1>💕 Valentine's Day 💕</h1>
+            <h2>What is our word?</h2>
+            <input type="text" id="wordInput" placeholder="Type your answer...">
+            <button onclick="checkWord()">Submit</button>
+            <div id="message"></div>
+        </div>
+
+        <div id="stage2">
+            <h1>💕 Valentine's Day 💕</h1>
+            <img id="firstImage" src="https://share.google/MYAFJfdstK7jd9Isn" alt="Valentine's Image">
+            <h2>Would you be my Valentine?</h2>
+            <button onclick="showWrongAnswer()">No</button>
+            <button onclick="showFinalImage()">Yes</button>
+        </div>
+
+        <div id="wrongAnswer">
+            <h1>💔 Wrong Answer 💔</h1>
+            <p class="message error">Wrong answer!</p>
+            <img src="https://share.google/G1IQeJoiTJaOG02Rj" alt="Wrong Answer">
+            <button onclick="goBack()">Try Again</button>
+        </div>
+
+        <div id="finalImage">
+            <h1>💑 Yes! 💑</h1>
+            <img src="https://share.google/sNjiAIXh19W3EhexI" alt="Final Image">
+            <p class="message success">I love you! ❤️</p>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('verifyBtn').onclick = function() {
-            var userInput = document.getElementById('wordInput').value;
-            if (userInput === 'وبعد' || userInput === 'و بعد') {
-                document.getElementById('result').innerText = 'Correct!';
+        function checkWord() {
+            const input = document.getElementById('wordInput').value;
+            const messageDiv = document.getElementById('message');
+            
+            if (input === 'وبعد' || input === 'و بعد') {
+                messageDiv.innerHTML = '<p class="message success">✓ Correct! ✓</p>'; 
+                setTimeout(function() {
+                    document.getElementById('stage1').classList.remove('active');
+                    document.getElementById('stage2').classList.add('active');
+                }, 1000);
             } else {
-                document.getElementById('result').innerText = 'Wrong answer!';
+                messageDiv.innerHTML = '<p class="message error">✗ Wrong answer, try again! ✗</p>'; 
             }
-        };
+        }
 
-        document.getElementById('yesBtn').onclick = function() {
-            document.getElementById('finalImage').style.display = 'block';
-        };
+        function showWrongAnswer() {
+            document.getElementById('stage2').classList.remove('active');
+            document.getElementById('wrongAnswer').classList.add('active');
+        }
 
-        document.getElementById('noBtn').onclick = function() {
-            document.getElementById('wrongAnswer').style.display = 'block';
-        };
+        function showFinalImage() {
+            document.getElementById('stage2').classList.remove('active');
+            document.getElementById('finalImage').classList.add('active');
+        }
+
+        function goBack() {
+            document.getElementById('wrongAnswer').classList.remove('active');
+            document.getElementById('stage2').classList.add('active');
+        }
     </script>
 </body>
 </html>
