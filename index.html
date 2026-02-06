@@ -19,14 +19,13 @@
         .msg { margin: 15px 0; font-weight: bold; font-size: 1.2em; }
         .success { color: #4caf50; }
         .error { color: #f44336; }
+        .music-btn { background: #FF69B4; padding: 10px 20px; border-radius: 20px; color: white; border: none; cursor: pointer; font-size: 14px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop>
-        <source src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/song.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="container">
+        <button class="music-btn" onclick="toggleMusic()">🎵 Play Music</button>
+        
         <div id="stage1" class="stage active">
             <h1>💕 Valentine's Day 💕</h1>
             <h2>What is our word?</h2>
@@ -56,7 +55,25 @@
         </div>
     </div>
 
+    <audio id="bgMusic">
+        <source src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/song.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        let isPlaying = false;
+
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                audio.loop = true;
+                isPlaying = true;
+            }
+        }
+
         function hideAll() {
             document.getElementById('stage1').classList.remove('active');
             document.getElementById('stage2').classList.remove('active');
@@ -69,7 +86,6 @@
             const msg = document.getElementById('message1');
             if (word === 'وبعد' || word === 'و بعد') {
                 msg.innerHTML = '<span class="success">✓ Correct!</span>';
-                document.getElementById('bgMusic').play();
                 setTimeout(function() {
                     hideAll();
                     document.getElementById('stage2').classList.add('active');
@@ -97,10 +113,6 @@
 
         document.getElementById('wordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkWord();
-        });
-
-        document.addEventListener('click', function() {
-            document.getElementById('bgMusic').play();
         });
     </script>
 </body>
