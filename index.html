@@ -1,13 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine</title>
+    <title>Valentine Interactive Page</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #FFC0CB, #FF69B4);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        #inputDiv {
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Happy Valentine's Day!</h1>
-    <img src="image1.jpg" alt="Image 1">
-    <img src="image2.jpg" alt="Image 2">
+    <h1>Valentine's Interactive Page</h1>
+    <div id="inputDiv">
+        <input type="text" id="inputText" placeholder="اكتب هنا" />
+        <button onclick="validateInput()">Submit</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function validateInput() {
+            const inputText = document.getElementById("inputText").value;
+            const message = document.getElementById("message");
+
+            if (inputText === "وبعد" || inputText === "و بعد") {
+                message.textContent = "تحقق! سيكون لديك يوم فالنتاين سعيد!";
+                // Load next stages or images
+            } else {
+                message.textContent = "رجاءً أعد المحاولة بكتابة 'وبعد' أو 'و بعد'";
+            }
+        }
+    </script>
+
+    <!-- Add images for all four stages -->
+    <img src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/image1.png" alt="Image 1"/>
+    <img src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/image2.png" alt="Image 2"/>
+    <img src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/image3.png" alt="Image 3"/>
+    <img src="https://raw.githubusercontent.com/nzsqr4qfqh-png/Valentine/main/image4.png" alt="Image 4"/>
 </body>
 </html>
