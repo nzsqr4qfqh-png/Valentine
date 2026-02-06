@@ -1,35 +1,89 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine Interactive Page</title>
-    <script>
-        function stage1() {
-            // JavaScript for stage 1
-            console.log("Stage 1 activated!");
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff99cc, #ffb3ff);
+            font-family: Arial, sans-serif;
         }
-
-        function stage2() {
-            // JavaScript for stage 2
-            console.log("Stage 2 activated!");
+        #stage {
+            display: none;
+            text-align: center;
         }
-
-        function stage3() {
-            // JavaScript for stage 3
-            console.log("Stage 3 activated!");
+        img {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
         }
-
-        function stage4() {
-            // JavaScript for stage 4
-            console.log("Stage 4 activated!");
+        button {
+            padding: 10px 20px;
+            background-color: #ff6699;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
         }
-    </script>
+        button:hover {
+            background-color: #ff3385;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Valentine Interactive Page</h1>
-    <button onclick="stage1()">Stage 1</button>
-    <button onclick="stage2()">Stage 2</button>
-    <button onclick="stage3()">Stage 3</button>
-    <button onclick="stage4()">Stage 4</button>
+    <div id="stage1" class="stage">
+        <h1>What is our word?</h1>
+        <input type="text" id="wordInput" placeholder="Type here...">
+        <button onclick="checkWord()">Submit</button>
+    </div>
+    <div id="stage2" class="stage">
+        <img src="image1.jpg" alt="Would you be my Valentine?">
+        <h2>Would you be my Valentine?</h2>
+        <button onclick="handleResponse('yes')">Yes</button>
+        <button onclick="handleResponse('no')">No</button>
+    </div>
+    <div id="stage3" class="stage">
+        <h2>Wrong answer!</h2>
+        <button onclick="goToStage2()">Try Again</button>
+    </div>
+    <div id="stage4" class="stage">
+        <img src="image2.jpg" alt="I Love You! ❤️">
+        <h2>I Love You! ❤️</h2>
+    </div>
+    <script>
+        let currentStage = 1;
+        document.getElementById('stage1').style.display = 'block';
 
-    <img id="valentineImage" src="https://raw.githubusercontent.com/yourusername/yourrepo/main/image.png" alt="Valentine Image" />
+        function checkWord() {
+            const input = document.getElementById('wordInput').value;
+            if (input === 'وبعد' || input === 'و بعد') {
+                document.getElementById('stage1').style.display = 'none';
+                document.getElementById('stage2').style.display = 'block';
+                currentStage = 2;
+            } else {
+                alert('Try Again!');
+            }
+        }
+        function handleResponse(response) {
+            document.getElementById('stage2').style.display = 'none';
+            if (response === 'yes') {
+                document.getElementById('stage4').style.display = 'block';
+            } else {
+                document.getElementById('stage3').style.display = 'block';
+            }
+        }
+        function goToStage2() {
+            document.getElementById('stage3').style.display = 'none';
+            document.getElementById('stage2').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
