@@ -5,42 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Day Interactive Page</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #ffebee; color: #333; text-align: center; }
-        img { max-width: 100%; height: auto; }
-        .button { margin: 10px; padding: 15px 20px; font-size: 18px; cursor: pointer; }
-        #verification { display: none; margin-top: 20px; }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #wrongAnswer, #finalImage { display: none; }
     </style>
 </head>
 <body>
-    <h1>Happy Valentine's Day!</h1>
-    <img src="https://example.com/valentine-image.jpg" alt="Valentine's Image">
-    <p>Please confirm if you love Valentine’s Day!</p>
-    <button class="button" id="yesBtn">Yes</button>
-    <button class="button" id="noBtn">No</button>
-
-    <div id="verification">
-        <h2>Word Verification</h2>
-        <p>Type the word <strong>Love</strong> to proceed:</p>
-        <input type="text" id="wordInput">
-        <button class="button" id="verifyBtn">Verify</button>
-        <p id="response"></p>
-    </div>
-
+    <h1>Valentine's Day Interactive Page</h1>
+    <label for="wordInput">What is our word?</label>
+    <input type="text" id="wordInput" placeholder="Type here...">
+    <button id="verifyBtn">Verify</button>
+    <div id="result"></div>
+    <img id="image" src="https://share.google/MYAFJfdstK7jd9Isn" alt="Valentine's Image" />
+    <h2>would you be my valentine?</h2>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+    <div id="wrongAnswer"><img src="https://share.google/G1IQeJoiTJaOG02Rj" alt="Wrong Answer" /></div>
+    <div id="finalImage"><img src="https://share.google/sNjiAIXh19W3EhexI" alt="Final Image" /></div>
     <script>
-        document.getElementById('yesBtn').onclick = function() {
-            document.getElementById('verification').style.display = 'block';
-        };
-        document.getElementById('noBtn').onclick = function() {
-            document.getElementById('response').innerText = 'That’s okay! Hope you have a lovely day!';
-        };
         document.getElementById('verifyBtn').onclick = function() {
-            const input = document.getElementById('wordInput').value;
-            const response = document.getElementById('response');
-            if(input.trim().toLowerCase() === 'love') {
-                response.innerText = 'Verification successful! Happy Valentine’s Day!';
+            var userInput = document.getElementById('wordInput').value;
+            if (userInput === 'وبعد' || userInput === 'و بعد') {
+                document.getElementById('result').innerText = 'Correct!';
             } else {
-                response.innerText = 'Verification failed. Please try again.';
+                document.getElementById('result').innerText = 'Wrong answer!';
             }
+        };
+
+        document.getElementById('yesBtn').onclick = function() {
+            document.getElementById('finalImage').style.display = 'block';
+        };
+
+        document.getElementById('noBtn').onclick = function() {
+            document.getElementById('wrongAnswer').style.display = 'block';
         };
     </script>
 </body>
