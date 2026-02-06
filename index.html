@@ -3,91 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Valentine Page</title>
+    <title>Valentine Interactive Page</title>
     <style>
         body {
-            background: linear-gradient(to right, #ff69b4, #ff1493);
+            background: linear-gradient(to bottom, #ffcccb, #ff99cc);
             font-family: Arial, sans-serif;
             text-align: center;
-            color: white;
+            padding: 50px;
         }
         h1 {
-            margin-top: 50px;
-        }
-        #stage {
-            display: none;
-        }
-        #buttons {
-            margin: 20px;
+            color: #fff;
         }
         button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #fff;
-            color: #ff69b4;
+            background-color: #ee6e73;
             border: none;
-            border-radius: 5px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
             cursor: pointer;
-        }
-        button:hover {
-            background-color: #f8f8f8;
-        }
-        img {
-            width: 300px;
-            height: auto;
-            margin-top: 20px;
+            border-radius: 12px;
         }
     </style>
 </head>
 <body>
-    <h1>Interactive Valentine Page</h1>
-    <div id="stage1" class="stage">
-        <h2>Stage 1: Choose Your Valentine</h2>
-        <div id="buttons">
-            <button onclick="nextStage(1)">Select a Valentine</button>
-        </div>
+    <div id="stage1">
+        <h1>What's your favorite word?</h1>
+        <input type="text" id="wordInput">  
+        <button onclick="nextStage(1)">Next</button>
     </div>
 
-    <div id="stage2" class="stage">
-        <h2>Stage 2: Send a Message</h2>
-        <textarea id="message" rows="4" cols="50" placeholder="Write your message here..."></textarea>
-        <div id="buttons">
-            <button onclick="nextStage(2)">Send Message</button>
-        </div>
+    <div id="stage2" style="display:none;">
+        <h1>Here's your Valentine question!</h1>
+        <img src="image1.jpg" alt="Valentine Question">
+        <button onclick="nextStage(2)">Answer</button>
     </div>
 
-    <div id="stage3" class="stage">
-        <h2>Stage 3: Choose a Gift</h2>
-        <div id="buttons">
-            <button onclick="nextStage(3)">Choose a Gift</button>
-        </div>
-        <img id="giftImage" src="" alt="Gift Image" style="display: none;">
+    <div id="stage3" style="display:none;">
+        <h1>Oops! Wrong answer</h1>
+        <button onclick="nextStage(0)">Try Again</button>
     </div>
 
-    <div id="stage4" class="stage">
-        <h2>Stage 4: Celebration</h2>
-        <img src="https://example.com/celebration-image.jpg" alt="Celebration Image">
+    <div id="stage4" style="display:none;">
+        <h1>Success!</h1>
+        <img src="image2.jpg" alt="Success Image">
     </div>
 
     <script>
-        let currentStage = 0;
-
         function nextStage(stage) {
-            if (currentStage < 3) {
-                document.getElementById('stage' + (currentStage + 1)).style.display = 'none';
-                currentStage++;
-                document.getElementById('stage' + (currentStage + 1)).style.display = 'block';
-                if (currentStage === 2) {
-                    document.getElementById('giftImage').src = 'https://example.com/gift-image.jpg';
-                    document.getElementById('giftImage').style.display = 'block';
+            document.getElementById('stage' + (stage)).style.display = 'none';
+            if (stage === 1) {
+                document.getElementById('stage2').style.display = 'block';
+            } else if (stage === 2) {
+                // Assuming the answer is always correct for demonstration purposes
+                const answerIsCorrect = true;
+                if (answerIsCorrect) {
+                    document.getElementById('stage4').style.display = 'block';
+                } else {
+                    document.getElementById('stage3').style.display = 'block';
                 }
             } else {
-                alert('Thank you for celebrating Valentine\'s Day!');
+                document.getElementById('stage1').style.display = 'block';
             }
         }
-
-        // Start with stage 1
-        document.getElementById('stage1').style.display = 'block';
     </script>
 </body>
 </html>
